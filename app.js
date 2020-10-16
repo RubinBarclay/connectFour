@@ -57,11 +57,14 @@ function winConditions(slot, curPlayer) {
   console.log(col);
 
 
+  let loopCount;
 
   // HORIZONTAL : the win pattern check shifts to the right each loop
   // i <= Math.abs(....) is how many possible win patterns there are i.e: loop count
-  for (let i = 0; i <= 3 - Math.abs(3 - col); i++) { // col index controls how many possible win patterns (max 4)
-    
+  loopCount = 3 - Math.abs(3 - col);
+  for (let i = 0; i <= loopCount; i++) { // col index controls how many possible win patterns (max 4)
+    /*
+    console.log("Horizontal");
     console.log([
       // !!!!!!! FIXED IT !!!!!! board[(intermediate value)] is undefined BECAUSE its an index which doesn't exist in array. i.e. too big/small
       board[col - (3 - i) >= 0 ? col - (3 - i) : 3][row],
@@ -69,7 +72,7 @@ function winConditions(slot, curPlayer) {
       board[col - (1 - i) >= 0 ? col - (1 - i) : 1][row],
       board[col - (0 - i) >= 0 ? col - (0 - i) : 0][row]
     ]);
-   
+    */
     if ([
       board[col - (3 - i) >= 0 ? col - (3 - i) : 3][row],
       board[col - (2 - i) >= 0 ? col - (2 - i) : 2][row],
@@ -80,8 +83,42 @@ function winConditions(slot, curPlayer) {
       return "Winner!";
     }
   }
+  
+  // VERTICAL
+  loopCount = row < 3 ? row : 5 - row;
+  for (let i = 0; i <= loopCount; i++) {
+    /*
+    console.log("Vertical");
+    console.log([
+      board[col][row - (3 - i) >= 0 ? row - (3 - i) : 3],
+      board[col][row - (2 - i) >= 0 ? row - (2 - i) : 2],
+      board[col][row - (1 - i) >= 0 ? row - (1 - i) : 1],
+      board[col][row - (0 - i) >= 0 ? row - (0 - i) : 0]
+    ]);
+    */
+    if ([
+      board[col][row - (3 - i) >= 0 ? row - (3 - i) : 3],
+      board[col][row - (2 - i) >= 0 ? row - (2 - i) : 2],
+      board[col][row - (1 - i) >= 0 ? row - (1 - i) : 1],
+      board[col][row - (0 - i) >= 0 ? row - (0 - i) : 0]
+    ].every((val) => val === curPlayer)
+    ) {
+      return "Winner!";
+    }
+  }
 
-  // No match found
+  // DIAGONAL
+  loopCount = 0;
+  for (let i = 0; i <= loopCount; i++) {
+    if ([
+      // board[col][row].....
+      // board[col][row].....
+      // board[col][row].....
+      // board[col][row].....
+    ].every((val) => val === curPlayer)
+    )
+  }
+  // No match found <-- is this necessary??????
   return null;
 }
 
