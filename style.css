@@ -16,6 +16,10 @@ body {
   background-color: aliceblue;
 }
 
+#player {
+  color: red;
+}
+
 #board {
   position: relative;
   display: grid;
