@@ -9,10 +9,15 @@
 body {
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
 
   background-color: aliceblue;
+}
+
+#player {
+  color: red;
 }
 
 #board {
@@ -28,7 +33,7 @@ body {
   background-color: blue;
 }
 
-.color {
+.slot {
   background-color: aliceblue;
   width: 90%;
   height: 90%;
