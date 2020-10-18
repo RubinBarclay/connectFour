@@ -53,8 +53,8 @@ function winConditions(slot, curPlayer) {
   let row = 6 - Number(slot[1]);
   let col = Number(slot[3]) - 1;
 
-  console.log(row);
-  console.log(col);
+  // console.log(row);
+  // console.log(col);
 
 
   let loopCount;
@@ -66,7 +66,6 @@ function winConditions(slot, curPlayer) {
     /*
     console.log("Horizontal");
     console.log([
-      // !!!!!!! FIXED IT !!!!!! board[(intermediate value)] is undefined BECAUSE its an index which doesn't exist in array. i.e. too big/small
       board[col - (3 - i) >= 0 ? col - (3 - i) : 3][row],
       board[col - (2 - i) >= 0 ? col - (2 - i) : 2][row],
       board[col - (1 - i) >= 0 ? col - (1 - i) : 1][row],
@@ -107,20 +106,97 @@ function winConditions(slot, curPlayer) {
     }
   }
 
-  // DIAGONAL
+  // DIAGONAL /
+  
+  //loopCount arrays 
+  let singleLoop = ['r4c1', 'r3c2', 'r2c3', 'r1c4', 'r6c4', 'r5c5', 'r4c6', 'r3c7', 'r5c1', 'r6c1', 'r6c2', 'r6c3', 'r1c5', 'r1c6', 'r1c7', 'r2c7'];
+  let doubleLoop = ['r5c1', 'r4c2', 'r3c3', 'r2c4', 'r1c5', 'r6c3', 'r5c4', 'r4c5', 'r3c6', 'r2c7', 'r5c2', 'r2c5', 'r5c3', 'r2c6'];
+  let tripleLoop = ['r4c3', 'r3c4', 'r4c4', 'r3c5'];
+  
+  
+    // max 3 (1, 2 or 3)
+    loopCount = singleLoop.indexOf(slot) > - 1 ? 1 // loop once
+              : doubleLoop.indexOf(slot) > - 1 ? 2 // loop twice
+              : tripleLoop.indexOf(slot) > - 1 ? 3 // loop thrice
+              : 0 // no possible win pattern
+
+    console.log(loopCount);
+    for (let i = 0; i < loopCount; i++) {
+      
+      console.log([
+        (col - (3 - i) >= 0 && row - (3 - i) >= 0)
+        ? board[col - (3 - i)][row - (3 - i)] 
+        : board[col + 1][3],
+        (col - (2 - i) >= 0 && row - (2 - i) >= 0)
+        ? board[col - (2 - i)][row - (2 - i)] 
+        : board[col + 2][2],
+        (col - (1 - i) >= 0 && row - (1 - i) >= 0)
+        ? board[col - (1 - i)][row - (1 - i)] 
+        : board[col + 3][1],
+        (col - (0 - i) >= 0 && row - (0 - i) >= 0)
+        ? board[col - (0 - i)][row - (0 - i)] 
+        : board[col][0]
+      ]);
+
+      if ([ 
+        (col - (3 - i) >= 0 && row - (3 - i) >= 0)
+        ? board[col - (3 - i)][row - (3 - i)] 
+        : board[col + 1][3],
+        (col - (2 - i) >= 0 && row - (2 - i) >= 0)
+        ? board[col - (2 - i)][row - (2 - i)] 
+        : board[col + 2][2],
+        (col - (1 - i) >= 0 && row - (1 - i) >= 0)
+        ? board[col - (1 - i)][row - (1 - i)] 
+        : board[col + 3][1],
+        (col - (0 - i) >= 0 && row - (0 - i) >= 0)
+        ? board[col - (0 - i)][row - (0 - i)] 
+        : board[col][0]
+      ].every((val) => val === curPlayer)
+      ) {
+        return "Winner!";
+      }
+      /*
+      if ([
+        (col - (3 - i) >= 0 && row - (3 - i) >= 0)
+        ? board[col - (3 - i)][row - (3 - i)] 
+        : board[3][3],
+        (col - (2 - i) >= 0 && row - (2 - i) >= 0)
+        ? board[col - (2 - i)][row - (2 - i)] 
+        : board[2][2],
+        (col - (1 - i) >= 0 && row - (1 - i) >= 0)
+        ? board[col - (1 - i)][row - (1 - i)] 
+        : board[1][1],
+        (col - (0 - i) >= 0 && row - (0 - i) >= 0)
+        ? board[col - (0 - i)][row - (0 - i)] 
+        : board[0][0]
+      ].every((val) => val === curPlayer)
+      ) {
+        return "Winner!";
+      }
+      */
+    }
+    
+  // } 
+  
+  // No match found <-- is this necessary??????
+  return null;
+}
+
+/*
+  // DIAGONAL \
   loopCount = 0;
   for (let i = 0; i <= loopCount; i++) {
+    
+    
     if ([
-      // board[col][row].....
-      // board[col][row].....
-      // board[col][row].....
-      // board[col][row].....
+      
     ].every((val) => val === curPlayer)
     )
   }
   // No match found <-- is this necessary??????
   return null;
 }
+*/
 
 // GLOBAL VARIABLES
 let player = 1;
